@@ -1,0 +1,20 @@
+---
+#docker_unifi_controller_container_
+docker_unifi_controller_container_env:
+# Quotations are a temporary fix for bug till Ansible 2.8
+  BIND_PRIV: "false"
+  RUNAS_UID0: "false"
+docker_unifi_controller_container_image: jacobalberty/unifi:latest
+#docker_unifi_controller_container_labels:
+docker_unifi_controller_container_name: unifi
+docker_unifi_controller_container_restart: unless-stopped
+docker_unifi_controller_container_volumes:
+  - unifi_data:/unifi
+  - unifi_run:/var/run/unifi
+docker_unifi_controller_ports:
+  - number: 3478
+    type: udp
+  - number: 8080
+  - number: 8443
+  - number: 10001
+    type: udp

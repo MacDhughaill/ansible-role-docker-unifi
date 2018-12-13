@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- {{ ansible_managed }} -->
+<!-- {{ template_run_date }} -->
+<service>
+  <short>Unifi controller</short>
+  <description>Software controller for Unifi's wireless access points and other hardware. </description>
+{% for port in docker_unifi_controller_ports %}
+  <port protocol="{{ port.type | default('tcp') }}" port="{{ port.number }}"/>
+{% endfor %}
+</service>

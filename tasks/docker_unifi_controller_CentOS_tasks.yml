@@ -1,0 +1,20 @@
+---
+- block:
+  - name: Copy template of custom firewall service for Unifi controller to CentOS
+    template:
+      src: unifi-controller.xml.j2
+      dest: /etc/firewalld/services/unifi-controller.xml
+      backup: true
+
+  - name: Reload CentOS firewall to discover new Unifi controller firewall exceptions
+    systemd:
+      name: firewalld
+      state: reloaded
+
+  - name: Add Unifi controller service to the CentOS firewall
+    firewalld:
+      immediate: true
+      permanent: true
+      service: unifi-controller
+      state: enabled
+  become: true

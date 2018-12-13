@@ -1,0 +1,15 @@
+---
+- include_tasks: "docker_unifi_controller_{{ ansible_distribution }}_tasks.yml"
+
+- name: Start the Unifi controller container
+  docker_container:
+    name: "{{ docker_unifi_controller_container_name }}"
+    image: "{{ docker_unifi_controller_container_image }}"
+    state: started
+    env: "{{ docker_unifi_controller_container_env }}"
+    init: true
+    labels: "{{ docker_unifi_controller_container_labels | default(omit) }}"
+    network_mode: host
+    restart_policy: "{{ docker_unifi_controller_container_restart }}"
+    volumes: "{{ docker_unifi_controller_container_volumes }}"
+  become: true
